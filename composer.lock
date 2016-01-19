@@ -1,0 +1,48 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "b46b37a6e81691414dd0818bbedd6b26",
+    "content-hash": "676bd2f53d5b7956032dbb80bc491af4",
+    "packages": [
+        {
+            "name": "turuwo3/activerecord",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/turuwo3/activerecord.git",
+                "reference": "9f4c6b1d27ba45678ec14340b29abe92b34f89fe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/turuwo3/activerecord/zipball/9f4c6b1d27ba45678ec14340b29abe92b34f89fe",
+                "reference": "9f4c6b1d27ba45678ec14340b29abe92b34f89fe",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TRW\\ActiveRecord\\": "."
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "activerecord!",
+            "time": "2016-01-19 08:46:08"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "turuwo3/activerecord": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

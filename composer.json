@@ -1,0 +1,14 @@
+{
+	"name": "turuwo3/mvc",
+	"description": "skeleton app",
+	"license": "MIT",
+	"require": {
+		"turuwo3/activerecord": "dev-develop"
+	},
+	"autoload": {
+		"psr-4": {
+			"TRW\\": "src"
+		}
+	}
+
+}
