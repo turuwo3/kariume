@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/turuwo3/activerecord.git",
-                "reference": "9f4c6b1d27ba45678ec14340b29abe92b34f89fe"
+                "reference": "640145dcba5a9a36f1899418c16629006febc42e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/turuwo3/activerecord/zipball/9f4c6b1d27ba45678ec14340b29abe92b34f89fe",
-                "reference": "9f4c6b1d27ba45678ec14340b29abe92b34f89fe",
+                "url": "https://api.github.com/repos/turuwo3/activerecord/zipball/640145dcba5a9a36f1899418c16629006febc42e",
+                "reference": "640145dcba5a9a36f1899418c16629006febc42e",
                 "shasum": ""
             },
             "type": "library",
@@ -32,7 +32,7 @@
                 "MIT"
             ],
             "description": "activerecord!",
-            "time": "2016-01-19 08:46:08"
+            "time": "2016-01-19 10:39:35"
         }
     ],
     "packages-dev": [],
