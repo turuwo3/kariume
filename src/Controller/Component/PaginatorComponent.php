@@ -41,7 +41,6 @@ class PaginatorComponent extends Component {
 		$this->conditions = array_merge($this->conditions, $conditions);
 		
 		$this->model = $model;
-		$this->pageCount = (int)ceil($model::rowCount() / $this->conditions['limit']);
 
 		
 	}
@@ -55,7 +54,10 @@ class PaginatorComponent extends Component {
 		$current = $this->page;
 		$current = max(min($current, $pageCount), 1);
 		$limit = $this->conditions['limit'];
-
+print_r([
+'pagecount'=>$pageCount,
+'current*limi'=>$current * $limit
+]);
 		if($pageCount > ($current * $limit)){
 			return true;
 		}
@@ -100,9 +102,13 @@ class PaginatorComponent extends Component {
 		];
 		$mergeConditions = array_merge($this->conditions, $conditions);
 
+		$this->pageCount = (int)ceil($model::rowCount() / $this->conditions['limit']);
+		
 		if(isset($options['where'])){
-			$mergeConditions = array_merge($mergeConditions, ['where'=>$options['where']]);
+			$mergeConditions = array_merge($mergeConditions, $options);
+			$this->pageCount = (int)ceil($model::rowCount($options) / $this->conditions['limit']);
 		}
+
 
 		$model = $this->model;
 
