@@ -5,7 +5,7 @@ use TRW\Controller\Component;
 
 class PaginatorComponent extends Component {
 
-	private $page = 0;
+	private $page = 1;
 
 	private $limit = 10;
 
@@ -50,15 +50,10 @@ class PaginatorComponent extends Component {
 	}
 
 	public function isNext(){
-		$pageCount = $this->pageCount;
-		$current = $this->page;
-		$current = max(min($current, $pageCount), 1);
+		$count = $this->count;
 		$limit = $this->conditions['limit'];
-print_r([
-'pagecount'=>$pageCount,
-'current*limi'=>$current * $limit
-]);
-		if($pageCount > ($current * $limit)){
+
+		if($count > $this->page * $limit){
 			return true;
 		}
 		return false;
@@ -66,7 +61,7 @@ print_r([
 
 	public function isPrev(){
 		$current = $this->page;
-		if($current <= 0){
+		if($current <= 1){
 			return false;
 		}
 
@@ -81,16 +76,10 @@ print_r([
 			}
 
 			$this->page = $query['page'];
-			if($query['page'] === 1){
-				$this->page = 0;
-			}
-
-			if(!$this->isNext()){
-				throw new Exception('page not found');
-			}
 		}
+
 		$page = $this->page;
-		
+		$page--;
 		$limit = $this->conditions['limit'];
 		$offset = $page * $limit;
 		$order = $this->conditions['order'];
@@ -102,15 +91,23 @@ print_r([
 		];
 		$mergeConditions = array_merge($this->conditions, $conditions);
 
+		$model = $this->model;
+
 		$this->pageCount = (int)ceil($model::rowCount() / $this->conditions['limit']);
-		
-		if(isset($options['where'])){
+		$this->count = $model::rowCount();
+
+		if(isset($options)){
 			$mergeConditions = array_merge($mergeConditions, $options);
 			$this->pageCount = (int)ceil($model::rowCount($options) / $this->conditions['limit']);
+			$this->count = $model::rowCount($options);
 		}
 
+		$requestPage = $this->page;
+		$this->page = max(min($this->page, $this->pageCount), 1);
 
-		$model = $this->model;
+		if($requestPage > $this->page){
+			throw new Exception('page not found');
+		}
 
 		$resultSet = $model::find($mergeConditions);
 
