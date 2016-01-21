@@ -55,12 +55,26 @@ class AuthComponentTest extends PHPUnit_Framework_TestCase {
 		
 		$request->setRequest(new Query(['page'=>10]));
 
-		$notfound = $paginator->paginate();
+	//	$notfound = $paginator->paginate();
 		
-		$this->assertEquals(1, count($notfound));
-		$this->assertEquals('error', $notfound[0]->name);
+	//	$this->assertEquals(1, count($notfound));
+	//	$this->assertEquals('error', $notfound[0]->name);
 
 
+		
+		$request->setRequest(new Query(['page'=>1]));
+
+		$id = 1;
+		$where = $paginator->paginate([
+			'where'=>[
+				'field'=>'id',
+				'comparision'=>'=',
+				'value'=>$id
+			]
+		]);
+		
+		$this->assertEquals(1, count($where));
+		$this->assertEquals('one', $where[0]->name);
 				
 		
 	}

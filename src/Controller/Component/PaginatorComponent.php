@@ -71,7 +71,7 @@ class PaginatorComponent extends Component {
 		return true;
 	}
 
-	public function paginate(){
+	public function paginate($options = []){
 		$query = $this->request->getQuery('');
 		if(isset($query['page'])){
 			if(!is_numeric($query['page'])){
@@ -92,13 +92,18 @@ class PaginatorComponent extends Component {
 		$limit = $this->conditions['limit'];
 		$offset = $page * $limit;
 		$order = $this->conditions['order'];
+
 		$conditions = [
 			'limit'=>$limit,
 			'offset'=>$offset,
 			'order'=>$order
 		];
-
 		$mergeConditions = array_merge($this->conditions, $conditions);
+
+		if(isset($options['where'])){
+			$mergeConditions = array_merge($mergeConditions, ['where'=>$options['where']]);
+		}
+
 		$model = $this->model;
 
 		$resultSet = $model::find($mergeConditions);

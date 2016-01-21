@@ -58,7 +58,7 @@ class PaginatorHelper  extends Helper{
 		$controller = $request->getParam('controller');
 		$action = $request->getParam('action');
 		$args = implode('/', $request->getParam('arguments'));
-		$link = "<a href='/{$controller}/{$action}/{$args}{$query}'>{$word}</a>";
+		$link = "<a href='/{$controller}/{$action}/{$args}/{$query}'>{$word}</a>";
 
 		return $link;
 	}
