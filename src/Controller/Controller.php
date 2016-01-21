@@ -75,6 +75,13 @@ class Controller {
 		header('Location:' . $url);	
 		exit;		
 	}
+
+	public function getComponent($name){
+		if(isset($this->{$name})){
+			return $this->{$name};
+		}
+		return false;
+	}
 	
 	public function startupProcess(){
 		$this->initialize();
