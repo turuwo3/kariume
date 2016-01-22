@@ -3,6 +3,8 @@ namespace TRW\Controller\Component;
 
 use Exception;
 use TRW\Core\App;
+use TRW\Exception\ForbiddenException;
+use TRW\Exception\MissingModelException;
 use TRW\Controller\Component;
 
 class AuthComponent extends Component {
@@ -43,7 +45,7 @@ class AuthComponent extends Component {
 			return true;
 		}
 
-		throw new Exception('forebedden');;
+		throw new ForbiddenException('forebedden');;
 	}
 
 
@@ -54,7 +56,7 @@ class AuthComponent extends Component {
 	private function authenticate(){
 		$model = App::className('User', 'Model');
 		if($model === false){
-			throw new Exception('class notfound ' . $model);
+			throw new MissingModelException('class notfound ' . $model);
 		}
 
 		$request = $this->controller->getRequest();
