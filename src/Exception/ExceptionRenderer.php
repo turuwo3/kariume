@@ -18,13 +18,21 @@ class ExceptionRenderer {
 
 	public function __construct(Exception $e){
 		$this->error = $e;
-		$this->method = $this->template = str_replace('Exception', get_class($e), '');
+		$this->method = $this->template = $this->getName($e);
 		$this->loadController();
 
 		if(!method_exists($this, $this->method)){
 			$this->method = 'error';		
 		}
 
+	}
+
+	private function getName($object){
+		$fullName = get_class($object);
+		$explode = explode("\\", $fullName);
+		$class = array_pop($explode);
+		$name = str_replace('Exception', '',$class);
+		return $name;
 	}
 
 	public function render(){
@@ -41,11 +49,15 @@ class ExceptionRenderer {
 	}
 
 	public function error(){
+		$fileName = $this->template;
 		if(Configure::read('Debug', 'level') === 1){
 			$fileName = 'develop';
-		}else {
+		}
+
+		if(!$this->controller->fileExists($fileName)){
 			$fileName = 'error';
 		}
+
 		echo $this->controller->render($fileName);
 	}
 

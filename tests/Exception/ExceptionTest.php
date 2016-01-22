@@ -21,7 +21,7 @@ class ExceptionTest extends PHPUnit_Framework_TestCase {
 		$this->expectOutputString('<div>エラーが発生しました
 </div>
 ');
-		ErrorHandler::handleException(new MissingControllerException('error'));
+		ErrorHandler::handleException(new Exception('error'));
 	}
 
 

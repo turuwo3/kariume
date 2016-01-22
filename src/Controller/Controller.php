@@ -18,13 +18,17 @@ class Controller {
 	private $modelName;
 	private $modelClass;
 	private $viewVars;
-
+	private $view;
 
 	public function __construct($request){
 		$name = explode('\\', get_class($this));
 		$this->name = substr(array_pop($name), 0, -10);
 		$this->modelName = Inflector::singular($this->name);
 		$this->request = $request;
+		
+		$viewPath = App::path('view');
+		$layoutPath = App::path('layout');
+		$this->view = new ViewAdapter($viewPath, $layoutPath, $this);
 	}
 
 	public function initialize(){
@@ -58,14 +62,10 @@ class Controller {
 	}
 
 	public function render($viewFileName){
-		$viewPath = App::path('view');
-		$layoutPath = App::path('layout');
-		$view = new ViewAdapter($viewPath, $layoutPath, $this);
-
 		$viewDir = $this->name;
 
-		$view->setViewVars($this->viewVars);
-		return $view->render($viewDir . '/' .$viewFileName);
+		$this->view->setViewVars($this->viewVars);
+		return $this->view->render($viewDir . '/' .$viewFileName);
 	}
 
 	public function redirect($param){
@@ -77,6 +77,13 @@ class Controller {
 	public function getComponent($name){
 		if(isset($this->{$name})){
 			return $this->{$name};
+		}
+		return false;
+	}
+
+	public function fileExists($fileName){
+		if($this->view->getViewFile($fileName) !== false)	{
+			return true;
 		}
 		return false;
 	}
