@@ -27,8 +27,10 @@ class Controller {
 		$this->request = $request;
 		
 		$viewPath = App::path('view');
+		$viewDir = $this->name;
 		$layoutPath = App::path('layout');
-		$this->view = new ViewAdapter($viewPath, $layoutPath, $this);
+		
+		$this->view = new ViewAdapter($viewPath.'/'.$viewDir, $layoutPath, $this);
 	}
 
 	public function initialize(){
@@ -62,10 +64,9 @@ class Controller {
 	}
 
 	public function render($viewFileName){
-		$viewDir = $this->name;
 
 		$this->view->setViewVars($this->viewVars);
-		return $this->view->render($viewDir . '/' .$viewFileName);
+		return $this->view->render($viewFileName);
 	}
 
 	public function redirect($param){

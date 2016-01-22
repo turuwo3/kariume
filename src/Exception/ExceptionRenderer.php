@@ -53,7 +53,6 @@ class ExceptionRenderer {
 		if(Configure::read('Debug', 'level') === 1){
 			$fileName = 'develop';
 		}
-
 		if(!$this->controller->fileExists($fileName)){
 			$fileName = 'error';
 		}
