@@ -57,16 +57,14 @@ class Controller {
 		return $this->viewVars;
 	}
 
-	public function render($request){
+	public function render($viewFileName){
 		$viewPath = App::path('view');
 		$layoutPath = App::path('layout');
 		$view = new ViewAdapter($viewPath, $layoutPath, $this);
 
 		$viewDir = $this->name;
-		$viewFileName = $request->getParam('action');
 
 		$view->setViewVars($this->viewVars);
-
 		return $view->render($viewDir . '/' .$viewFileName);
 	}
 

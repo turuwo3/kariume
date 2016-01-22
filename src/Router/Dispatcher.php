@@ -47,7 +47,8 @@ class Dispatcher {
 	}
 
 	public function render($controller, $request){
-		return $controller->render($request);
+		$viewFileName = $request->getParam('action');
+		return $controller->render($viewFileName);
 	}
 
 }

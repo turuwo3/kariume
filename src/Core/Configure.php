@@ -10,9 +10,7 @@ class Configure {
 	}
 
 	public static function load($filePath){
-		if(empty(self::$data)){
-			self::$data = self::_load($filePath);
-		}
+		self::$data = self::_load($filePath);
 	}
 
 	public static function read($name, $key){

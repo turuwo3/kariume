@@ -17,8 +17,11 @@ return [
 
 	'Security' => [
 		'salt' => 'dfsdfsddgnt4523vvdfdsfasdfaeast4wr4rq34fafaewrfergergaergaergegaert43t34634534'
-	]
+	],
 
+	'Debug'=>[
+		'level'=>0
+	]
 
 
 ];
