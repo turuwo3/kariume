@@ -56,7 +56,7 @@ class AuthComponent extends Component {
 	private function authenticate(){
 		$model = App::className('User', 'Model');
 		if($model === false){
-			throw new MissingModelException('class notfound User');
+			throw new MissingModelException('User model notfound');
 		}
 
 		$request = $this->controller->getRequest();
@@ -110,7 +110,7 @@ class AuthComponent extends Component {
 
 	public function logoutRedirect($param = null){
 		if($param === null){
-			return $this->redirect['loginRedirect'];
+			return $this->redirect['logoutRedirect'];
 		}
 		$this->redirect['logoutRedirect'] =  $param;
 	}
