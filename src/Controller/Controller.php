@@ -2,7 +2,7 @@
 namespace TRW\Controller;
 
 use ReflectionMethod;
-use Exception;
+use TRW\Exception\MissingComponentException;
 use TRW\Core\App;
 use TRW\Router\Router;
 use TRW\Util\Inflector;
@@ -50,7 +50,7 @@ class Controller {
 	public function loadComponent($name, $config = null){
 		$class = App::className($name . 'Component', 'Controller\\Component');
 		if($class === false){
-			throw new Exception('component not found ' . $name);
+			throw new MissingComponentException('component not found ' . $name);
 		}
 		$this->{$name} = new $class($this, $config);
 	}

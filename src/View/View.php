@@ -52,10 +52,16 @@ class View {
 	public function render($file){
 		$data = $this->viewVars;
 		$viewFile = $this->getViewFile($file);
+		if($viewFile === false){
+			throw new MissingTemplateException('not found template ' . $file);
+		}
 		$viewContent = $this->deploymentVars($viewFile, $data);
 		$this->viewBlock->set('content', $viewContent);
 
 		$layoutFile = $this->getLayoutFile($this->layoutFile);
+		if($layoutFile === false){
+			throw new MissingTemplateException('not found layout ' . $this->layoutFile);
+		}
 		$layoutContent = $this->deploymentVars($layoutFile, $data);
 		$this->viewBlock->set('content', $layoutContent);
 

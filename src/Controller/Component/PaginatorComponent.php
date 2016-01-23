@@ -1,6 +1,7 @@
 <?php
 namespace TRW\Controller\Component;
 
+use TRW\Exception\NotFoundException;
 use TRW\Controller\Component;
 
 class PaginatorComponent extends Component {
@@ -69,10 +70,10 @@ class PaginatorComponent extends Component {
 	}
 
 	public function paginate($options = []){
-		$query = $this->request->getQuery('');
+
 		if(isset($query['page'])){
 			if(!is_numeric($query['page'])){
-				throw new Exception('page not found');
+				throw new NotFoundException('page not found');
 			}
 
 			$this->page = $query['page'];
@@ -98,15 +99,13 @@ class PaginatorComponent extends Component {
 
 		if(isset($options)){
 			$mergeConditions = array_merge($mergeConditions, $options);
-			$this->pageCount = (int)ceil($model::rowCount($options) / $this->conditions['limit']);
-			$this->count = $model::rowCount($options);
 		}
 
 		$requestPage = $this->page;
 		$this->page = max(min($this->page, $this->pageCount), 1);
 
 		if($requestPage > $this->page){
-			throw new Exception('page not found');
+			throw new NotFoundException('page not found');
 		}
 
 		$resultSet = $model::find($mergeConditions);

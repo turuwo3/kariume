@@ -1,7 +1,7 @@
 <?php
 namespace TRW\Router;
 
-use Exception;
+use TRW\Exception\MissingControllerException;
 use TRW\Core\Configure;
 use TRW\Core\App;
 use TRW\View\View; 
@@ -38,7 +38,7 @@ class Dispatcher {
 		$fullName = App::className($class . 'Controller', 'Controller');
 
 		if($fullName === false){
-			throw new Exception('missing controller');
+			throw new MissingControllerException('missing controller');
 		}
 
 		$controller = new $fullName($request);
