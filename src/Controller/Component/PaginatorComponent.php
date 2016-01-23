@@ -71,6 +71,8 @@ class PaginatorComponent extends Component {
 
 	public function paginate($options = []){
 
+		$query = $this->request->getQuery();
+
 		if(isset($query['page'])){
 			if(!is_numeric($query['page'])){
 				throw new NotFoundException('page not found');
@@ -99,6 +101,9 @@ class PaginatorComponent extends Component {
 
 		if(isset($options)){
 			$mergeConditions = array_merge($mergeConditions, $options);
+			$this->pageCount = 
+				(int)ceil($model::rowCount($mergeConditions) / $this->conditions['limit']);
+			$this->count = $model::rowCount($mergeConditions);
 		}
 
 		$requestPage = $this->page;
