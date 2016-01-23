@@ -56,7 +56,7 @@ class AuthComponent extends Component {
 	private function authenticate(){
 		$model = App::className('User', 'Model');
 		if($model === false){
-			throw new MissingModelException('class notfound ' . $model);
+			throw new MissingModelException('class notfound User');
 		}
 
 		$request = $this->controller->getRequest();
