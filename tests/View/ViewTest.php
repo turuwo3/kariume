@@ -14,6 +14,8 @@ class ViewTest extends PHPUnit_Framework_TestCase {
 		$this->view = new View($viewPath, $layoutPath);
 	}
 
+
+
 	public function testRender(){
 		$fileName = 'Users/index';
 		$viewVars = ['var'=>'view'];
@@ -43,4 +45,32 @@ class ViewTest extends PHPUnit_Framework_TestCase {
 	}
 
 
+	public function testElement(){
+		$fileName = 'Users/testElement';
+		$viewVars = ['var' => 'foo'];
+		$this->view->setViewVars($viewVars);
+		$output = $this->view->render($fileName);
+
+		$expect = '<div><div>
+	foo</div>
+</div>
+';
+
+		$this->expectOutputString($expect);
+		echo $output;
+	}
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+

@@ -11,7 +11,11 @@ class View {
 	private $layoutPath;
 	private $layoutFile = 'default';
 
+
 	private $viewPath;
+
+	private $elementDirName = 'Element';
+	private $elementPath;
 
 	private $viewBlock;
 
@@ -20,6 +24,7 @@ class View {
 	public function __construct($viewPath, $layoutPath, $viewVars = array()){
 		$this->layoutPath = $layoutPath;
 		$this->viewPath = $viewPath;
+		$this->elementPath = $this->viewPath . '/' .$this->elementDirName;
 		$this->viewVars = $viewVars;
 		$this->viewBlock = new ViewBlock();
 	}
@@ -27,17 +32,33 @@ class View {
 
 
 	public function getLayoutFile($fileName){
-		$file = $this->layoutPath . '/' . $fileName . $this->extension;
-		if(is_file($file)){
-				return $file;
+		$file = $this->isFile($this->layoutPath, $fileName);	
+		if($file === false){
+			throw new MissingTemplateException('layout not found ' . $fileName);
 		}
-		return false;
+		return $file;
 	}
 
 	public function getViewFile($fileName){
-		$file = $this->viewPath . '/' . $fileName . $this->extension;
+		$file = $this->isFile($this->viewPath, $fileName);	
+		if($file === false){
+			throw new MissingTemplateException('view not found ' . $fileName);
+		}
+		return $file;
+	}
+
+	public function getElementFile($fileName){
+		$file = $this->isFile($this->elementPath, $fileName);	
+		if($file === false){
+			throw new MissingTemplateException('element not found ' . $fileName);
+		}
+		return $file;
+	}
+
+	protected function isFile($path, $file){
+		$file = $path . '/' . $file . $this->extension;
 		if(is_file($file)){
-				return $file;
+			return $file;
 		}
 		return false;
 	}
@@ -49,24 +70,28 @@ class View {
 		$this->viewVars = array_merge($this->viewVars, $vars);
 	}
 
+	public function element($fileName){
+		$elementFile = $this->getElementFile($fileName);
+		$elementContent = $this->deploymentVars($elementFile, $this->viewVars);
+
+		return $elementContent;
+	}
+
 	public function render($file){
 		$data = $this->viewVars;
 		$viewFile = $this->getViewFile($file);
-		if($viewFile === false){
-			throw new MissingTemplateException('not found template ' . $file);
-		}
+
 		$viewContent = $this->deploymentVars($viewFile, $data);
 		$this->viewBlock->set('content', $viewContent);
 
 		$layoutFile = $this->getLayoutFile($this->layoutFile);
-		if($layoutFile === false){
-			throw new MissingTemplateException('not found layout ' . $this->layoutFile);
-		}
+
 		$layoutContent = $this->deploymentVars($layoutFile, $data);
 		$this->viewBlock->set('content', $layoutContent);
 
 		return $this->viewBlock->get('content');
 	}
+
 
 	public function assign($name, $value){
 		$this->viewBlock->set($name, $value);
