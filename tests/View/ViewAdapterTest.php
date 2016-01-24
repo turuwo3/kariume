@@ -10,13 +10,16 @@ class ViewAdapterTest extends PHPUnit_Framework_TestCase {
 
 	protected $view;
 
+
 	public function setUp(){
 		Configure::load('../app/config/config.php');
 		$viewPath = '../app/View';
 		$layoutPath = '../app/Layout';
+		$elementPath = '../app/View/Element';
 		$this->view = new ViewAdapter(
 			$viewPath,
 			$layoutPath,
+			$elementPath,
 			new UsersController(new RequestAggregate())
 			);
 	}

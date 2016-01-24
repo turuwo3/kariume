@@ -6,7 +6,8 @@ return [
 		'namespace' => 'App',
 		'webroot' => 'webroot',
 		'view' => '../app/View',
-		'layout' => '../app/Layout'	
+		'layout' => '../app/Layout'	,
+		'element' => '../app/View/Element'
 	],
 
 	'Database'=>[

@@ -11,7 +11,8 @@ class ViewTest extends PHPUnit_Framework_TestCase {
 	public function setUp(){
 		$viewPath = '../app/View';
 		$layoutPath = '../app/Layout';
-		$this->view = new View($viewPath, $layoutPath);
+		$elementPath = '../app/View/Element';
+		$this->view = new View($viewPath, $layoutPath, $elementPath);
 	}
 
 

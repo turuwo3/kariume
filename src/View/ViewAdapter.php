@@ -8,8 +8,8 @@ class ViewAdapter extends View implements ViewInterface {
 
 	private $controller;
 
-	public function __construct($viewPath, $layoutPath, $controller){
-		parent::__construct($viewPath, $layoutPath);
+	public function __construct($viewPath, $layoutPath, $elementPath, $controller){
+		parent::__construct($viewPath, $layoutPath, $elementPath);
 		$this->controller = $controller;
 	}
 

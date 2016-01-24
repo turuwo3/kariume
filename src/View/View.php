@@ -14,17 +14,16 @@ class View {
 
 	private $viewPath;
 
-	private $elementDirName = 'Element';
 	private $elementPath;
 
 	private $viewBlock;
 
 	private $viewVars = [];
 
-	public function __construct($viewPath, $layoutPath, $viewVars = array()){
+	public function __construct($viewPath, $layoutPath, $elementPath, $viewVars = array()){
 		$this->layoutPath = $layoutPath;
 		$this->viewPath = $viewPath;
-		$this->elementPath = $this->viewPath . '/' .$this->elementDirName;
+		$this->elementPath = $elementPath;
 		$this->viewVars = $viewVars;
 		$this->viewBlock = new ViewBlock();
 	}

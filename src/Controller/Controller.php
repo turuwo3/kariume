@@ -29,8 +29,9 @@ class Controller {
 		$viewPath = App::path('view');
 		$viewDir = $this->name;
 		$layoutPath = App::path('layout');
-		
-		$this->view = new ViewAdapter($viewPath.'/'.$viewDir, $layoutPath, $this);
+		$elementPath = App::path('element');
+
+		$this->view = new ViewAdapter($viewPath.'/'.$viewDir, $layoutPath, $elementPath, $this);
 	}
 
 	public function initialize(){
