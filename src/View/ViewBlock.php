@@ -1,6 +1,11 @@
 <?php
 namespace TRW\View;
 
+/**
+* ビューのバッファを保持するクラス.
+*
+*
+*/
 class ViewBlock {
 
 	private $blocks = array();

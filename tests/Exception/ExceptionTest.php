@@ -22,7 +22,7 @@ class ExceptionTest extends PHPUnit_Framework_TestCase {
 		$this->expectOutputString('<div>エラーが発生しました
 </div>
 ');
-		ErrorHandler::handleException(new Exception('error'));
+		ErrorHandler::handleException(new \Exception('error'));
 	}
 
 	public function testExceptionRenderCaseForbiddenException(){

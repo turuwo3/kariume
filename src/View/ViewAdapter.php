@@ -3,9 +3,18 @@ namespace TRW\View;
 
 use Exception;
 use TRW\Core\App;
-
+/**
+* VIewをラップしたクラス
+*
+*
+*/
 class ViewAdapter extends View implements ViewInterface {
 
+/**
+* コントローラーのインスタンス.
+*
+* @var \TRW\Controller\Controller
+*/
 	private $controller;
 
 	public function __construct($viewPath, $layoutPath, $elementPath, $controller){
@@ -20,10 +29,20 @@ class ViewAdapter extends View implements ViewInterface {
 		return $this->loadHelper($name);
 	}
 
+/**
+* 自身の保持しているコントローラーを返す.
+*
+* @return \TRW\Controller\Controller
+*/
 	public function getController(){
 		return $this->controller;
 	}
 
+/**
+* ヘルパークラスをロードする.
+*
+* @return \TRW\View\Helper
+*/
 	public function loadHelper($name){
 		$class = App::className($name . 'Helper', 'View\\Helper');
 

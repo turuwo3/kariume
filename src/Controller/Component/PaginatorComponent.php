@@ -4,28 +4,73 @@ namespace TRW\Controller\Component;
 use TRW\Exception\NotFoundException;
 use TRW\Controller\Component;
 
+/**
+* ページネーションを行うためのクラス
+*
+*
+*
+*/
 class PaginatorComponent extends Component {
 
+/**
+* デフォルトのページ番号.
+*
+* @var int
+*/
 	private $page = 1;
 
+/**
+* レコードの取得件数.
+*
+* @var int
+*/
 	private $limit = 10;
 
+/**
+* レコードの最大取得件数.
+*
+* $limitがこの$maxLimitを超えた場合$maxLimitが上限値となる.
+* 
+* @var int $maxLimit
+*/
 	private $maxLimit = 20;
 
-	private $order = 'id ASC';
-
-
+/**
+* デフォルトのレコード取得条件.
+*
+* @var array
+*/
 	private $conditions = [
 		'limit'=>10,
 		'order'=>'id ASC'
 	];
 
+/**
+* ページネーションするレコードクラス.
+*
+* @var \TRW\ActiveRecord\BaseRecord
+*/
 	private $model;
 
+/**
+* コントローラークラス.
+*
+* @var \TRW\Controller\Controller
+*/
 	private $controller;
 
+/**
+* リクエストデータ
+*
+* @var \TRW\Router\RequestAggregate
+*/
 	private $request;
 
+/**
+* ページ数.
+*
+* @var int
+*/
 	private $pageCount;
 
 	public function __construct($controller){
@@ -33,7 +78,17 @@ class PaginatorComponent extends Component {
 		$this->request = $controller->getRequest();
 	}
 
-
+/**
+* ページングするモデルとその条件を設定する.
+*
+* @var string $model レコードクラス App\Model\User
+* @var array $conditions
+* $conditions = 
+*   [
+*     'limit' => 12 ,
+*     'order' => 'id DESC'
+*   ];
+*/
 	public function initialize($model, $conditions){
 
 		if(isset($conditions['limit']) && $conditions['limit'] >= $this->maxLimit){
@@ -46,10 +101,20 @@ class PaginatorComponent extends Component {
 		
 	}
 
+/**
+* 現在のページ番号を返す.
+*
+* @return int
+*/
 	public function getCurrent(){
 		return $this->page;
 	}
 
+/**
+* 次のページがあるか検査する.
+*
+* @return boolean 次のページがあればture　なければfase
+*/
 	public function isNext(){
 		$count = $this->count;
 		$limit = $this->conditions['limit'];
@@ -60,6 +125,11 @@ class PaginatorComponent extends Component {
 		return false;
 	}
 
+/**
+* 前ののページがあるか検査する.
+*
+* @return boolean 前のページがあればture　なければfase
+*/
 	public function isPrev(){
 		$current = $this->page;
 		if($current <= 1){
@@ -69,6 +139,20 @@ class PaginatorComponent extends Component {
 		return true;
 	}
 
+/**
+* ページネーションを行う.
+*
+* @param array $options 検索条件
+* $options = 
+*  [
+*    'where' => [
+*      'field' => 'user_id',
+*      'comparision' => '=',
+*      'value' => 2
+*    ]
+*  ]
+* @return \TRW\ActiveRecord\BaseRecord ページネーションされたレコードオブジェクト
+*/
 	public function paginate($options = []){
 
 		$query = $this->request->getQuery();

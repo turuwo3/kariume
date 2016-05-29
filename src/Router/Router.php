@@ -4,19 +4,61 @@ namespace TRW\Router;
 use Exception;
 use TRW\Router\Route;
 
+/**
+* URLに対するパスを制御するクラス.
+*
+* パスとパラメータをマッピングする
+* パスとはURLに対するエイリアスの事
+* 
+* 例えば'/Users/'というパスに対して['controller'=>'Users', 'action'=>'index]
+* というパラメータをマッピングするとユーザーは'/Users/'とリクエストするだけで
+* /Users/indexページにアクセスさせる事ができる
+*
+*/
 class Router {
 
+/**
+* パスとパラメータのセットを表すクラスのリスト.
+*
+* @var array 
+*/
 	private static $routerCollection;
 
+/**
+* パスとパラメータのマッピングを追加する.
+*
+* @param string @path
+* @param array @param
+* $param = 
+*  [
+*    'controller' => 'Users',
+*    'action' => 'index',
+*    'arguments' => [ //argumentsはオプション
+*      1, 'foo'
+*    ]
+*  ]
+*/
 	public static function add($path, $param){
 		$route = new Route($path, $param);
 		self::$routerCollection[$route->getPath()] = $route;
 	}
 
+/**
+* 任意のパスのパラメーターを消去する.
+*
+* @param string $key パスの事
+* @return void 
+*/
 	public static function remove($key){
 		self::$routerCollection[$key] = null;
 	}
 
+/**
+* パスのマッピングを返す.
+*
+* @param string $key パスの事.
+* @return Route|boolean パスのマッピングオブジェクトがなければfalse
+*/
 	public static function get($key = null){
 		if(!empty(self::$routerCollection[$key])){
 			return self::$routerCollection[$key];

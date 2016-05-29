@@ -3,20 +3,32 @@ namespace TRW\Request;
 
 use TRW\Request\RequestObject;
 
+/**
+* urlパラメータを表すクラス
+*
+* 
+*/
 class Param extends RequestObject {
 
+/**
+* URLパラメータ.
+*
+* @var array
+*/
 	private $param = [
 		'url' => '',
 		'controller' => '',
 		'action' => '',
 		'arguments' => []
 	];
-
+/**
+* @Override
+*/
 	public function __construct($requestType){
 		$this->createParam($requestType);		
 	}
 /*
-*	@Override
+* @Override
 */
 	public function has($key){
 		if(empty($this->param)){ return false;}
@@ -38,7 +50,18 @@ class Param extends RequestObject {
 		}
 	}
 
-
+/**
+* $_SERVER['REQUEST_URL']からパラメータを切り取り、配列に変更する.
+*
+* パラメータとはスラッシュで区切られた値の事を指す
+* getパラメータは含まない
+* 1番目のパラメータはコントローラ名
+* 2番目はコントローラーのメソッド名
+* 3番目以降はメソッドの引数
+*
+* @param string $url $_SERVER['REQUEST_URL'] 
+* @return array
+*/
 	private function createParam($uri){
 
 		$this->param['url'] = $uri;

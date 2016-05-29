@@ -11,9 +11,11 @@ return [
 	],
 
 	'Database'=>[
-		'dns'=>'mysql:dbname=test;host=localhost;charaset=utf8',
-		'username'=>'****',
-		'password'=>'****'
+		'MySql' => [
+			'dns'=>'mysql:dbname=test;host=localhost;charaset=utf8',
+			'user'=>'****',
+			'password'=>'****'
+		]
 	],
 
 	'Security' => [

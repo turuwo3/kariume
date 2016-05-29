@@ -3,16 +3,46 @@ namespace TRW\View\Helper;
 
 use TRW\View\Helper;
 
+/**
+* ページネーションするためのクラス.
+*
+*
+*/
 class PaginatorHelper  extends Helper{
 
+/**
+* ViewAdapterオブジェクト.
+*
+* @var \TRW\View\ViewAdapter
+*/
 	private $veiw;
 
+/**
+* コントローラーオブジェクト.
+*
+* @var \TRW\Controller\Contoller
+*/
 	private $controller;
 
+/**
+* リクエストデータ.
+*
+* @var \TRW\Request\RequestAggregate
+*/
 	private $request;
 
+/**
+* ページネーションのコンポーネント
+*
+* @var \TRW\Controller\Component_paginatorComponent
+*/
 	private $component;
 
+/**
+* 現在のページ番号.
+*
+* @var int
+*/
 	private $current;
 
 	public function __construct($view){
@@ -22,6 +52,11 @@ class PaginatorHelper  extends Helper{
 		$this->component = $this->controller->getComponent('Paginator');
 	}
 
+/**
+* 現在のページ番号を返す.
+*
+* @return int
+*/
 	public function current(){
 		$current = $this->component->getCurrent();
 		
@@ -32,6 +67,12 @@ class PaginatorHelper  extends Helper{
 		return $current;
 	}
 
+/**
+* 次のページのリンクを生成する.
+*
+* @praram string $word "次の５件"などのワード
+* @return string
+*/
 	public function next($word){
 		if(!$this->component->isNext()){
 			return null;
@@ -43,6 +84,12 @@ class PaginatorHelper  extends Helper{
 		return $this->link($query, $word);
 	}
 
+/**
+* 前ののページのリンクを生成する.
+*
+* @praram string $word "前の５件"などのワード
+* @return string
+*/
 	public function prev($word){
 		if(!$this->component->isPrev()){
 			return null;
@@ -53,6 +100,13 @@ class PaginatorHelper  extends Helper{
 		return $this->link($query, $word);	
 	}
 
+/**
+* リンクを生成する.
+*
+* @param string $query getパラメーター
+* @param string リンクに含めたい言葉
+* @return string htmlリンク
+*/
 	private function link($query, $word){
 		$request = $this->request;
 		$controller = $request->getParam('controller');
