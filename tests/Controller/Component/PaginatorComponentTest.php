@@ -21,7 +21,7 @@ class AuthComponentTest extends PHPUnit_Framework_TestCase {
 	static $connection;
 
 	public static function setUpBeforeClass(){
-		$config = require 'db_config.php';
+		$config = require 'config.php';
 		self::$connection = $connection = new MySql($config);
 		BaseRecord::setConnection($connection);
 	}

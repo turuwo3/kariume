@@ -68,6 +68,7 @@ class AuthComponent extends Component {
 *
 * ControllerのbeforeFilterで使用してください
 *
+* @override
 * @param \TRW\Controller\Controller コントローラーオブジェクト
 * @return boolean
 */
